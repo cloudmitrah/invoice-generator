@@ -53,7 +53,7 @@ export default {
     menuItems: [
          
           { title: 'Create', path: '/create', icon: 'mdi-message-text' },
-          { title: 'Reports', path: '/about', icon: 'mdi-receipt' }
+          { title: 'Reports', path: '/reports', icon: 'mdi-receipt' }
      ]
   }),
   computed: {

@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import create from '../views/createProduct.vue'
 import Edit from '../views/EditProduct.vue'
 import Details from '../views/DetailsProduct.vue'
+import Reports from '../views/ReportProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes = [
     path: '/details',
     name: 'Details',
     component: Details
+  },
+  {
+    path: '/reports',
+    name: 'Reports',
+    component: Reports
   },
   {
     path: '/about',

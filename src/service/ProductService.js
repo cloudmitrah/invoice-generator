@@ -23,6 +23,9 @@ class ProductService {
   getPDFbyId(pdfid,pdfType) {
     return http.get(`/abc/${pdfid}/${pdfType}`,{ headers: this.headers, responseType: "blob" });
   }
+  getReport(invoice_date1,invoice_date2) {
+    return http.get(`/reports/${invoice_date1}/${invoice_date2}`);
+  }
 //   deleteAll() {
 //     return http.delete(`/tutorials`);
 //   }
