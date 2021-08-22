@@ -40,16 +40,22 @@
           </router-link></v-toolbar-title
         >
         <v-spacer></v-spacer>
+
         <v-btn
           flat
           color="indigo"
           v-for="item in menuItems"
           :key="item.title"
           :to="item.path"
+          class="mx-1"
+          inset
+          vertical
         >
           <v-icon left dark>{{ item.icon }}</v-icon>
+
           {{ item.title }}
         </v-btn>
+        <v-divider class="mx-4" inset vertical></v-divider>
         <div class="my-2">
           <v-btn @click="logout()" color="error" fab small dark>
             <v-icon>exit_to_app</v-icon>

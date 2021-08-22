@@ -3,20 +3,137 @@
     <div>
       <div>
         <v-row>
-          <v-col lg="4" cols="md" class="pb-2">
-            <v-card color="red">
+          <v-col lg="2" cols="md" class="pb-2">
+            <v-card color="success">
               <v-row class="no-gutters">
                 <div class="col-auto">
-                  <div class="white fill-height">&nbsp;</div>
+                  <!-- <div class="white fill-height">&nbsp;</div> -->
                 </div>
                 <div class="col pa-3 py-4 white--text">
                   <h5 class="text-truncate text-uppercase">Sales</h5>
-                  <h1>{{ this.totalWithoutTax }}</h1>
+                  <h1>213</h1>
                 </div>
               </v-row>
             </v-card>
           </v-col>
-          <v-col lg="4" cols="md" class="pb-2">
+          <v-col lg="2" cols="md" class="pb-2">
+            <v-card color="primary">
+              <v-row class="no-gutters">
+                <div class="col-auto">
+                  <!-- <div class="white fill-height">&nbsp;</div> -->
+                </div>
+                <div class="col pa-3 py-4 white--text">
+                  <h5 class="text-truncate text-uppercase">Sales</h5>
+                  <h1>213</h1>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col lg="2" cols="md" class="pb-2">
+            <v-card color="indigo">
+              <v-row class="no-gutters">
+                <div class="col-auto">
+                  <!-- <div class="white fill-height">&nbsp;</div> -->
+                </div>
+                <div class="col pa-3 py-4 white--text">
+                  <h5 class="text-truncate text-uppercase">Sales</h5>
+                  <h1>213</h1>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col lg="2" cols="md" class="pb-2">
+            <v-card color="warning">
+              <v-row class="no-gutters">
+                <div class="col-auto">
+                  <!-- <div class="white fill-height">&nbsp;</div> -->
+                </div>
+                <div class="col pa-3 py-4 white--text">
+                  <h5 class="text-truncate text-uppercase">Sales</h5>
+                  <h1>213</h1>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col lg="2" cols="md" class="pb-2">
+            <v-card color="blue-grey">
+              <v-row class="no-gutters">
+                <div class="col-auto">
+                  <!-- <div class="white fill-height">&nbsp;</div> -->
+                </div>
+                <div class="col pa-3 py-4 white--text">
+                  <h5 class="text-truncate text-uppercase">Sales</h5>
+                  <h1>213</h1>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col lg="2" cols="md" class="pb-2">
+            <v-card>
+              <v-row class="no-gutters">
+                <div class="col-auto">
+                  <div class="success fill-height">&nbsp;</div>
+                </div>
+                <div class="col pa-3 py-4 success--text">
+                  <h5 class="text-truncate text-uppercase">Calls</h5>
+                  <h1>213</h1>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col lg="2" cols="md" class="pb-2">
+            <v-card>
+              <v-row class="no-gutters">
+                <div class="col-auto">
+                  <div class="success fill-height">&nbsp;</div>
+                </div>
+                <div class="col pa-3 py-4 success--text">
+                  <h5 class="text-truncate text-uppercase">Calls</h5>
+                  <h1>213</h1>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col lg="2" cols="md" class="pb-2">
+            <v-card>
+              <v-row class="no-gutters">
+                <div class="col-auto">
+                  <div class="success fill-height">&nbsp;</div>
+                </div>
+                <div class="col pa-3 py-4 success--text">
+                  <h5 class="text-truncate text-uppercase">Calls</h5>
+                  <h1>213</h1>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col lg="2" cols="md" class="pb-2">
+            <v-card>
+              <v-row class="no-gutters">
+                <div class="col-auto">
+                  <div class="success fill-height">&nbsp;</div>
+                </div>
+                <div class="col pa-3 py-4 success--text">
+                  <h5 class="text-truncate text-uppercase">Calls</h5>
+                  <h1>213</h1>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col lg="2" cols="md" class="pb-2">
+            <v-card color="error">
+              <v-row class="no-gutters">
+                <div class="col-auto">
+                  <!-- <div class="white fill-height">&nbsp;</div> -->
+                </div>
+                <div class="col pa-3 py-4 white--text">
+                  <h5 class="text-truncate text-uppercase">Sales</h5>
+                  <h1>213</h1>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col lg="2" cols="md" class="pb-2">
             <v-card color="green">
               <v-row class="no-gutters">
                 <div class="col-auto">
@@ -29,7 +146,7 @@
               </v-row>
             </v-card>
           </v-col>
-          <v-col lg="4" cols="md" class="pb-2">
+          <v-col lg="2" cols="md" class="pb-2">
             <v-card>
               <v-row class="no-gutters">
                 <div class="col-auto">
@@ -53,11 +170,26 @@
           >
         </template>
       </v-snackbar>
-
+      <v-divider class="mt-6"></v-divider>
       <v-card>
         <v-card-title>
           Product List
           <v-spacer></v-spacer>
+          <v-btn
+            flat
+            color="primary"
+            v-for="item in menuItems"
+            :key="item.titles"
+            :to="item.path"
+            class="mx-1"
+            inset
+            vertical
+          >
+            <v-icon left dark>{{ item.icon }}</v-icon>
+
+            {{ item.title }}
+          </v-btn>
+          <v-divider class="mx-4" inset vertical></v-divider>
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
@@ -66,6 +198,7 @@
             hide-detail
           ></v-text-field>
         </v-card-title>
+
         <v-data-table
           :headers="headers"
           sort-by="invoice_no"
@@ -206,6 +339,9 @@ export default {
       deleteSnackbar: false,
       textDelete: "Product deleted sucessfully",
       deletetimeout: 2000,
+      menuItems: [
+        { title: "Create", path: "/create", icon: "mdi-message-text" },
+      ],
 
       headers: [
         {
