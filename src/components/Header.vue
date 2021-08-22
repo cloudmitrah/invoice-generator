@@ -1,12 +1,18 @@
 <template>
-<div>
-<div >
-      <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
+  <div>
+    <div>
+      <v-navigation-drawer
+        v-model="drawer"
+        :clipped="$vuetify.breakpoint.lgAndUp"
+        app
+      >
         <v-list dense>
           <template>
-            <v-list-item  v-for="item in menuItems"
-          :key="item.title"
-          :to="item.path" >
+            <v-list-item
+              v-for="item in menuItems"
+              :key="item.title"
+              :to="item.path"
+            >
               <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
@@ -18,31 +24,40 @@
         </v-list>
       </v-navigation-drawer>
     </div>
-    <div >
-      <v-app-bar dense :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue darken-3" dark>
+    <div>
+      <v-app-bar
+        dense
+        :clipped-left="$vuetify.breakpoint.lgAndUp"
+        app
+        color="blue darken-3"
+        dark
+      >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-       
-        <v-toolbar-title> <router-link to="/" tag="span" style="cursor: pointer">
-         Brand
-        </router-link></v-toolbar-title>
+
+        <v-toolbar-title>
+          <router-link to="/" tag="span" style="cursor: pointer">
+            Brand
+          </router-link></v-toolbar-title
+        >
         <v-spacer></v-spacer>
-         <v-btn  flat color="indigo"
+        <v-btn
+          flat
+          color="indigo"
           v-for="item in menuItems"
           :key="item.title"
-          :to="item.path">
+          :to="item.path"
+        >
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
-         </v-btn>
-         <div class="my-2">
-            <v-btn  @click="logout()" color="error" fab small dark>
-              <v-icon>exit_to_app</v-icon>
-            </v-btn>
-          </div>
+        </v-btn>
+        <div class="my-2">
+          <v-btn @click="logout()" color="error" fab small dark>
+            <v-icon>exit_to_app</v-icon>
+          </v-btn>
+        </div>
       </v-app-bar>
     </div>
-   </div>
-   
-
+  </div>
 </template>
 
 <script>
@@ -51,18 +66,17 @@ export default {
     dialog: true,
     drawer: false,
     menuItems: [
-         
-          { title: 'Create', path: '/create', icon: 'mdi-message-text' },
-          { title: 'Reports', path: '/reports', icon: 'mdi-receipt' }
-     ]
+      { title: "Create", path: "/create", icon: "mdi-message-text" },
+      { title: "Reports", path: "/reports", icon: "mdi-receipt" },
+    ],
   }),
   computed: {
-    isLoggedIn: function () {
+    isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
     },
   },
   methods: {
-    logout: function () {
+    logout: function() {
       this.$store.dispatch("logout").then(() => {
         this.$router.push("/");
       });
@@ -71,8 +85,7 @@ export default {
 };
 </script>
 
-
-  <!-- <div>
+<!-- <div>
     <v-app-bar
       color="indigo"
       dense

@@ -1,15 +1,9 @@
 <template>
-  
   <v-app>
-   
-
-   
     <v-content>
       <router-view></router-view>
     </v-content>
-    
   </v-app>
-
 </template>
 
 <script>
@@ -17,19 +11,17 @@
 
 export default {
   name: "App",
-  data(){
+  data() {
     return {
-      appTitle: 'Awesome App',
+      appTitle: "Awesome App",
       sidebar: false,
       menuItems: [
-          { title: 'Home', path: '/home', icon: 'home' },
-          { title: 'Create', path: '/create', icon: 'face' },
-          { title: 'Sign In', path: '/about', icon: 'lock_open' }
-     ]
-    }
+        { title: "Home", path: "/home", icon: "home" },
+        { title: "Create", path: "/create", icon: "face" },
+        { title: "Sign In", path: "/about", icon: "lock_open" },
+      ],
+    };
   },
 };
 </script>
-<style>
-
-</style>
+<style></style>

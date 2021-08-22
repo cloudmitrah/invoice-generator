@@ -1,350 +1,343 @@
 <template>
   <v-container fluid>
-      <v-form v-on:submit.prevent="updateProduct" ref="form" v-model="valid">
-        <v-card>
-          <v-row>
-            <v-col cols="12" md="3">
-              <v-card-title primary-title>
-                <div class="title text--primary">Product Details</div>
-              </v-card-title>
-            </v-col>
-            <v-col cols="12" md="9">
-              <v-card-title primary-title class="justify-center">
-                <v-btn
-                  type="submit"
-                  :disabled="!valid"
-                  color="primary"
-                  class="mr-4"
-                  @click="getpdf('Original for Reciever')"
-                >
-                  Original
-                  <v-icon right dark>cloud_download</v-icon>
-                </v-btn>
-                <v-btn
-                  type="submit"
-                  :disabled="!valid"
-                  color="primary"
-                  class="mr-4"
-                  @click="getpdf('Duplicate for Transporter')"
-                >
-                  Duplicate
-                  <v-icon right dark>cloud_download</v-icon>
-                </v-btn>
-                <v-btn
-                  type="submit"
-                  :disabled="!valid"
-                  color="primary"
-                  class="mr-4"
-                  @click="getpdf(item, 'Triplicate for Supplier')"
-                >
-                  Triplicate
-                  <v-icon right dark>cloud_download</v-icon>
-                </v-btn>
-               
-              </v-card-title>
-            </v-col>
-          </v-row>
-
-          <v-card-text>
-            <v-card ref="form">
-              <v-card-title primary-title>Invoice Details</v-card-title>
-              <v-card-text>
-                <v-simple-table dense height="300px">
-                  <template v-slot:default>
-                    <thead>
-                      <tr>
-                        <th class="text-left">Description</th>
-                        <th class="text-left">Details</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Invoice No.</td>
-                        <td>{{ form.invoice_no }}</td>
-                      </tr>
-                      <tr>
-                        <td>Invoice Date</td>
-                        <td>{{ form.invoice_date }}</td>
-                      </tr>
-                      <tr>
-                        <td>Eway Bill No.</td>
-                        <td>{{ form.eway_bill_no }}</td>
-                      </tr>
-                      <tr>
-                        <td>Dispatch From</td>
-                        <td>{{ form.dispatch_from }}</td>
-                      </tr>
-                      <tr>
-                        <td>Place Of Supply</td>
-                        <td>{{ form.place_of_supply }}</td>
-                      </tr>
-                      <tr>
-                        <td>Vehicle No.</td>
-                        <td>{{ form.vehicle_no }}</td>
-                      </tr>
-                      <tr>
-                        <td>Transport Name</td>
-                        <td>{{ form.transport_name }}</td>
-                      </tr>
-                      <tr>
-                        <td>Reverse Charge Applicable</td>
-                        <td>{{ form.reverse_charge_applicable }}</td>
-                      </tr>
-                    </tbody>
-                  </template>
-                </v-simple-table>
-              </v-card-text>
-              <!-- <v-divider class="mt-12"></v-divider> -->
-            </v-card>
-            <v-divider class="mt-6"></v-divider>
-            <v-card ref="form">
-              <v-card-title primary-title
-                >Receiver Details</v-card-title
+    <v-form v-on:submit.prevent="updateProduct" ref="form" v-model="valid">
+      <v-card>
+        <v-row>
+          <v-col cols="12" md="3">
+            <v-card-title primary-title>
+              <div class="title text--primary">Product Details</div>
+            </v-card-title>
+          </v-col>
+          <v-col cols="12" md="9">
+            <v-card-title primary-title class="justify-center">
+              <v-btn
+                type="submit"
+                :disabled="!valid"
+                color="primary"
+                class="mr-4"
+                @click="getpdf('Original for Reciever')"
               >
-              <v-card-text>
-                <v-simple-table dense height="300px">
-                  <template v-slot:default>
-                    <thead>
-                      <tr>
-                        <th colspan="2">Details of Receiver | Bill To</th>
-                        <th colspan="2">Details of Consignee | Ship To</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td width="10%">Name</td>
-                        <td width="40%">{{ form.bill_to_name }}</td>
-                        <td width="10%">Name</td>
-                        <td width="40%">{{ form.ship_to_name }}</td>
-                      </tr>
-                      <tr>
-                        <td colspan="2" width="50%">
-                          Address:
-                          <br />
-                          {{ form.bill_to_adress_line1 }}
-                          <br />
-                          {{ form.bill_to_adress_line2 }}
-                          <br />
-                          {{ form.bill_to_city }}-{{ form.bill_to_pincode }}
-                        </td>
-
-                        <td colspan="2" width="50%">
-                          Address:
-                          <br />
-                          {{ form.ship_to_adress_line1 }}
-                          <br />
-                          {{ form.ship_to_adress_line2 }}
-                          <br />
-                          {{ form.ship_to_city }}-{{ form.ship_to_pincode }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>GSTIN</td>
-                        <td>{{ form.bill_to_gstin }}</td>
-                        <td>GSTIN</td>
-                        <td>{{ form.ship_to_gstin }}</td>
-                      </tr>
-                      <tr>
-                        <td>State</td>
-                        <td>{{ form.bill_to_state }}</td>
-                        <td>State</td>
-                        <td>{{ form.ship_to_state }}</td>
-                      </tr>
-                      <tr>
-                        <td>State Code</td>
-                        <td>{{ form.bill_to_code }}</td>
-                        <td>State Code</td>
-                        <td>{{ form.ship_to_code }}</td>
-                      </tr>
-                    </tbody>
-                  </template>
-                </v-simple-table>
-              </v-card-text>
-            </v-card>
-
-            <v-divider class="mt-6"></v-divider>
-
-            <v-card ref="form">
-              <v-card-title primary-title
-                >Product Details</v-card-title
+                Original
+                <v-icon right dark>cloud_download</v-icon>
+              </v-btn>
+              <v-btn
+                type="submit"
+                :disabled="!valid"
+                color="primary"
+                class="mr-4"
+                @click="getpdf('Duplicate for Transporter')"
               >
-              <v-card-text>
-                <table class="table1">
-                  <thead class="th1">
+                Duplicate
+                <v-icon right dark>cloud_download</v-icon>
+              </v-btn>
+              <v-btn
+                type="submit"
+                :disabled="!valid"
+                color="primary"
+                class="mr-4"
+                @click="getpdf(item, 'Triplicate for Supplier')"
+              >
+                Triplicate
+                <v-icon right dark>cloud_download</v-icon>
+              </v-btn>
+            </v-card-title>
+          </v-col>
+        </v-row>
+
+        <v-card-text>
+          <v-card ref="form">
+            <v-card-title primary-title>Invoice Details</v-card-title>
+            <v-card-text>
+              <v-simple-table dense height="300px">
+                <template v-slot:default>
+                  <thead>
                     <tr>
-                      <th class="th1" rowspan="2">SN</th>
-                      <th class="th1" colspan="2" rowspan="2">Description</th>
-                      <th class="th1" rowspan="2">HSN/ SAC</th>
-                      <th class="th1" rowspan="2">Qty</th>
-                      <th class="th1" rowspan="2">Unit</th>
-                      <th class="th1" rowspan="2">Rate</th>
-                      <th class="th1" rowspan="2">Amount</th>
-                      <th class="th1" style="text-align: center" colspan="2">
-                        CGST
-                      </th>
-                      <th class="th1" style="text-align: center" colspan="2">
-                        SGST
-                      </th>
-                      <th class="th1" style="text-align: center" colspan="2">
-                        IGST
-                      </th>
-                      <th class="th1" style="text-align: center" rowspan="2">
-                        Tax Amt
-                      </th>
-                      <th class="th1" style="text-align: center" rowspan="2">
-                        Total
-                      </th>
-                    </tr>
-                    <tr>
-                      <th class="th1">Rate</th>
-                      <th class="th1">Amt</th>
-                      <th class="th1">Rate</th>
-                      <th class="th1">Amt</th>
-                      <th class="th1">Rate</th>
-                      <th class="th1">Amt</th>
+                      <th class="text-left">Description</th>
+                      <th class="text-left">Details</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(productList, k) in form.productList" :key="k">
-                      <td class="td1">{{ k + 1 }}</td>
-                      <td class="td1" colspan="2">
-                        {{ productList.description }}
-                      </td>
-                      <td class="td1">{{ productList.hsn_sac }}</td>
-                      <td class="td1">{{ productList.quantity }}</td>
-                      <td class="td1">{{ productList.unit }}</td>
-                      <td class="td1">{{ productList.rate }}</td>
-                      <td class="td1">{{ productList.amount }}</td>
-                      <td class="td1">{{ productList.cgst_rate }}</td>
-                      <td class="td1">{{ productList.cgst_amount }}</td>
-                      <td class="td1">{{ productList.sgst_rate }}</td>
-
-                      <td class="td1">{{ productList.sgst_amount }}</td>
-                      <td class="td1">{{ productList.igst_rate }}</td>
-                      <td class="td1">{{ productList.igst_amount }}</td>
-                       <td class="td1">{{ productList.tax_amount }}</td>
-                      <td class="td1">{{ productList.total_amount }}</td>
+                    <tr>
+                      <td>Invoice No.</td>
+                      <td>{{ form.invoice_no }}</td>
+                    </tr>
+                    <tr>
+                      <td>Invoice Date</td>
+                      <td>{{ form.invoice_date }}</td>
+                    </tr>
+                    <tr>
+                      <td>Eway Bill No.</td>
+                      <td>{{ form.eway_bill_no }}</td>
+                    </tr>
+                    <tr>
+                      <td>Dispatch From</td>
+                      <td>{{ form.dispatch_from }}</td>
+                    </tr>
+                    <tr>
+                      <td>Place Of Supply</td>
+                      <td>{{ form.place_of_supply }}</td>
+                    </tr>
+                    <tr>
+                      <td>Vehicle No.</td>
+                      <td>{{ form.vehicle_no }}</td>
+                    </tr>
+                    <tr>
+                      <td>Transport Name</td>
+                      <td>{{ form.transport_name }}</td>
+                    </tr>
+                    <tr>
+                      <td>Reverse Charge Applicable</td>
+                      <td>{{ form.reverse_charge_applicable }}</td>
                     </tr>
                   </tbody>
-                </table>
-              </v-card-text>
+                </template>
+              </v-simple-table>
+            </v-card-text>
+            <!-- <v-divider class="mt-12"></v-divider> -->
+          </v-card>
+          <v-divider class="mt-6"></v-divider>
+          <v-card ref="form">
+            <v-card-title primary-title>Receiver Details</v-card-title>
+            <v-card-text>
+              <v-simple-table dense height="300px">
+                <template v-slot:default>
+                  <thead>
+                    <tr>
+                      <th colspan="2">Details of Receiver | Bill To</th>
+                      <th colspan="2">Details of Consignee | Ship To</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td width="10%">Name</td>
+                      <td width="40%">{{ form.bill_to_name }}</td>
+                      <td width="10%">Name</td>
+                      <td width="40%">{{ form.ship_to_name }}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" width="50%">
+                        Address:
+                        <br />
+                        {{ form.bill_to_adress_line1 }}
+                        <br />
+                        {{ form.bill_to_adress_line2 }}
+                        <br />
+                        {{ form.bill_to_city }}-{{ form.bill_to_pincode }}
+                      </td>
 
-              <!-- <v-divider class="mt-12"></v-divider> -->
-            </v-card>
+                      <td colspan="2" width="50%">
+                        Address:
+                        <br />
+                        {{ form.ship_to_adress_line1 }}
+                        <br />
+                        {{ form.ship_to_adress_line2 }}
+                        <br />
+                        {{ form.ship_to_city }}-{{ form.ship_to_pincode }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>GSTIN</td>
+                      <td>{{ form.bill_to_gstin }}</td>
+                      <td>GSTIN</td>
+                      <td>{{ form.ship_to_gstin }}</td>
+                    </tr>
+                    <tr>
+                      <td>State</td>
+                      <td>{{ form.bill_to_state }}</td>
+                      <td>State</td>
+                      <td>{{ form.ship_to_state }}</td>
+                    </tr>
+                    <tr>
+                      <td>State Code</td>
+                      <td>{{ form.bill_to_code }}</td>
+                      <td>State Code</td>
+                      <td>{{ form.ship_to_code }}</td>
+                    </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </v-card-text>
+          </v-card>
 
-            <!-- <div>
+          <v-divider class="mt-6"></v-divider>
+
+          <v-card ref="form">
+            <v-card-title primary-title>Product Details</v-card-title>
+            <v-card-text>
+              <table class="table1">
+                <thead class="th1">
+                  <tr>
+                    <th class="th1" rowspan="2">SN</th>
+                    <th class="th1" colspan="2" rowspan="2">Description</th>
+                    <th class="th1" rowspan="2">HSN/ SAC</th>
+                    <th class="th1" rowspan="2">Qty</th>
+                    <th class="th1" rowspan="2">Unit</th>
+                    <th class="th1" rowspan="2">Rate</th>
+                    <th class="th1" rowspan="2">Amount</th>
+                    <th class="th1" style="text-align: center" colspan="2">
+                      CGST
+                    </th>
+                    <th class="th1" style="text-align: center" colspan="2">
+                      SGST
+                    </th>
+                    <th class="th1" style="text-align: center" colspan="2">
+                      IGST
+                    </th>
+                    <th class="th1" style="text-align: center" rowspan="2">
+                      Tax Amt
+                    </th>
+                    <th class="th1" style="text-align: center" rowspan="2">
+                      Total
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="th1">Rate</th>
+                    <th class="th1">Amt</th>
+                    <th class="th1">Rate</th>
+                    <th class="th1">Amt</th>
+                    <th class="th1">Rate</th>
+                    <th class="th1">Amt</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(productList, k) in form.productList" :key="k">
+                    <td class="td1">{{ k + 1 }}</td>
+                    <td class="td1" colspan="2">
+                      {{ productList.description }}
+                    </td>
+                    <td class="td1">{{ productList.hsn_sac }}</td>
+                    <td class="td1">{{ productList.quantity }}</td>
+                    <td class="td1">{{ productList.unit }}</td>
+                    <td class="td1">{{ productList.rate }}</td>
+                    <td class="td1">{{ productList.amount }}</td>
+                    <td class="td1">{{ productList.cgst_rate }}</td>
+                    <td class="td1">{{ productList.cgst_amount }}</td>
+                    <td class="td1">{{ productList.sgst_rate }}</td>
+
+                    <td class="td1">{{ productList.sgst_amount }}</td>
+                    <td class="td1">{{ productList.igst_rate }}</td>
+                    <td class="td1">{{ productList.igst_amount }}</td>
+                    <td class="td1">{{ productList.tax_amount }}</td>
+                    <td class="td1">{{ productList.total_amount }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </v-card-text>
+
+            <!-- <v-divider class="mt-12"></v-divider> -->
+          </v-card>
+
+          <!-- <div>
               <v-btn @click="addNewRow" small color="primary">Add</v-btn>
             </div>-->
-            <v-divider class="mt-6"></v-divider>
+          <v-divider class="mt-6"></v-divider>
 
-            <v-card>
-              <v-card-title primary-title>Product Calculation</v-card-title>
-              <v-card-text>
-                <v-row no-gutters>
-                  <v-col :cols="5">
-                    <v-card class="pa-2" outlined tile
-                      >Amount Without Tax(Rs.)</v-card
-                    >
-                  </v-col>
-                  <v-col>
-                    <v-card class="pa-2" outlined tile>{{
-                      form.amount_without_tax
-                    }}</v-card>
-                  </v-col>
-                </v-row>
+          <v-card>
+            <v-card-title primary-title>Product Calculation</v-card-title>
+            <v-card-text>
+              <v-row no-gutters>
+                <v-col :cols="5">
+                  <v-card class="pa-2" outlined tile
+                    >Amount Without Tax(Rs.)</v-card
+                  >
+                </v-col>
+                <v-col>
+                  <v-card class="pa-2" outlined tile>{{
+                    form.amount_without_tax
+                  }}</v-card>
+                </v-col>
+              </v-row>
 
-                <v-row no-gutters>
-                  <v-col :cols="5">
-                    <v-card class="pa-2" outlined tile>CGST Amount(Rs.)</v-card>
-                  </v-col>
-                  <v-col>
-                    <v-card class="pa-2" outlined tile>{{
-                      form.total_cgst
-                    }}</v-card>
-                  </v-col>
-                </v-row>
+              <v-row no-gutters>
+                <v-col :cols="5">
+                  <v-card class="pa-2" outlined tile>CGST Amount(Rs.)</v-card>
+                </v-col>
+                <v-col>
+                  <v-card class="pa-2" outlined tile>{{
+                    form.total_cgst
+                  }}</v-card>
+                </v-col>
+              </v-row>
 
-                <v-row no-gutters>
-                  <v-col :cols="5">
-                    <v-card class="pa-2" outlined tile>SGST Amount(Rs.)</v-card>
-                  </v-col>
-                  <v-col>
-                    <v-card class="pa-2" outlined tile>{{
-                      form.total_sgst
-                    }}</v-card>
-                  </v-col>
-                </v-row>
+              <v-row no-gutters>
+                <v-col :cols="5">
+                  <v-card class="pa-2" outlined tile>SGST Amount(Rs.)</v-card>
+                </v-col>
+                <v-col>
+                  <v-card class="pa-2" outlined tile>{{
+                    form.total_sgst
+                  }}</v-card>
+                </v-col>
+              </v-row>
 
-                <v-row no-gutters>
-                  <v-col :cols="5">
-                    <v-card class="pa-2" outlined tile>IGST Amount(Rs.)</v-card>
-                  </v-col>
-                  <v-col>
-                    <v-card class="pa-2" outlined tile>{{
-                      form.total_igst
-                    }}</v-card>
-                  </v-col>
-                </v-row>
+              <v-row no-gutters>
+                <v-col :cols="5">
+                  <v-card class="pa-2" outlined tile>IGST Amount(Rs.)</v-card>
+                </v-col>
+                <v-col>
+                  <v-card class="pa-2" outlined tile>{{
+                    form.total_igst
+                  }}</v-card>
+                </v-col>
+              </v-row>
 
-                <v-row no-gutters>
-                  <v-col :cols="5">
-                    <v-card class="pa-2" outlined tile
-                      >Total Tax Amount(Rs.)</v-card
-                    >
-                  </v-col>
-                  <v-col>
-                    <v-card class="pa-2" outlined tile>{{
-                      form.total_tax
-                    }}</v-card>
-                  </v-col>
-                </v-row>
+              <v-row no-gutters>
+                <v-col :cols="5">
+                  <v-card class="pa-2" outlined tile
+                    >Total Tax Amount(Rs.)</v-card
+                  >
+                </v-col>
+                <v-col>
+                  <v-card class="pa-2" outlined tile>{{
+                    form.total_tax
+                  }}</v-card>
+                </v-col>
+              </v-row>
 
-                <v-row no-gutters>
-                  <v-col :cols="5">
-                    <v-card class="pa-2" outlined tile
-                      >Total Amount With Tax(Rs.)</v-card
-                    >
-                  </v-col>
-                  <v-col>
-                    <v-card class="pa-2" outlined tile>{{
-                      form.total_amount_with_tax
-                    }}</v-card>
-                  </v-col>
-                </v-row>
+              <v-row no-gutters>
+                <v-col :cols="5">
+                  <v-card class="pa-2" outlined tile
+                    >Total Amount With Tax(Rs.)</v-card
+                  >
+                </v-col>
+                <v-col>
+                  <v-card class="pa-2" outlined tile>{{
+                    form.total_amount_with_tax
+                  }}</v-card>
+                </v-col>
+              </v-row>
 
-                <v-row no-gutters>
-                  <v-col :cols="5">
-                    <v-card class="pa-2" outlined tile
-                      >Amount in Words(INR)</v-card
-                    >
-                  </v-col>
-                  <v-col>
-                    <v-card class="pa-2" outlined tile>{{
-                      AmountinWords
-                    }}</v-card>
-                  </v-col>
-                </v-row>
-              </v-card-text>
-            </v-card>
-          </v-card-text>
-          <!-- <v-divider class="mt-12"></v-divider> -->
-          <v-card-actions class="justify-center">
-             <router-link to="/home">
-              <v-btn color="primary" class="mr-4">Back</v-btn>
-            </router-link>
-             <v-btn
-                  type="submit"
-                  :disabled="!valid"
-                  color="warning"
-                  class="mr-4"
-                   @click="editItem()"
-                  >Edit</v-btn
-                >
-              
-           
-          </v-card-actions>
-        </v-card>
-      </v-form>
+              <v-row no-gutters>
+                <v-col :cols="5">
+                  <v-card class="pa-2" outlined tile
+                    >Amount in Words(INR)</v-card
+                  >
+                </v-col>
+                <v-col>
+                  <v-card class="pa-2" outlined tile>{{
+                    AmountinWords
+                  }}</v-card>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-card-text>
+        <!-- <v-divider class="mt-12"></v-divider> -->
+        <v-card-actions class="justify-center">
+          <router-link to="/home">
+            <v-btn color="primary" class="mr-4">Back</v-btn>
+          </router-link>
+          <v-btn
+            type="submit"
+            :disabled="!valid"
+            color="warning"
+            class="mr-4"
+            @click="editItem()"
+            >Edit</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-form>
   </v-container>
 </template>
 <script>
@@ -428,22 +421,20 @@ export default {
       // let uri =
       //   "http://localhost:8013/productById/" +
       //   this.$route.params.id;
-        ProductService.getProductbyId(this.$route.params.id).then((response) => {
+      ProductService.getProductbyId(this.$route.params.id).then((response) => {
         this.form = response.data;
-          this.AmountinWords = this.convertToWords(
+        this.AmountinWords = this.convertToWords(
           this.form.total_amount_with_tax
         );
         this.form.invoice_date = this.format_date(this.form.invoice_date);
-       
-      
       });
     },
-     format_date(value) {
+    format_date(value) {
       if (value) {
         return moment(String(value)).format("YYYY-MM-DD");
       }
     },
-convertToWords(total_withtax) {
+    convertToWords(total_withtax) {
       //convert Amount to Words
       var amount = total_withtax;
       var words = new Array();
@@ -555,17 +546,16 @@ convertToWords(total_withtax) {
         billTo +
         ")" +
         ".pdf";
-       ProductService.getPDFbyId(pdfid,pdfType)
+      ProductService.getPDFbyId(pdfid, pdfType)
         .then((response) => {
           const content = response.headers["content-type"];
           download(response.data, filename, content);
         })
         .catch((error) => console.log(error));
     },
-     editItem() {
+    editItem() {
       this.$router.push({ name: "Edit", params: { id: this.form.id } });
     },
-    
   },
 };
 </script>

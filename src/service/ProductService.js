@@ -20,19 +20,22 @@ class ProductService {
   delete(id) {
     return http.delete(`/delete/${id}`);
   }
-  getPDFbyId(pdfid,pdfType) {
-    return http.get(`/abc/${pdfid}/${pdfType}`,{ headers: this.headers, responseType: "blob" });
+  getPDFbyId(pdfid, pdfType) {
+    return http.get(`/abc/${pdfid}/${pdfType}`, {
+      headers: this.headers,
+      responseType: "blob",
+    });
   }
-  getReport(invoice_date1,invoice_date2) {
+  getReport(invoice_date1, invoice_date2) {
     return http.get(`/reports/${invoice_date1}/${invoice_date2}`);
   }
-//   deleteAll() {
-//     return http.delete(`/tutorials`);
-//   }
+  //   deleteAll() {
+  //     return http.delete(`/tutorials`);
+  //   }
 
-//   findByTitle(title) {
-//     return http.get(`/tutorials?title=${title}`);
-//   }
+  //   findByTitle(title) {
+  //     return http.get(`/tutorials?title=${title}`);
+  //   }
 }
 
 export default new ProductService();

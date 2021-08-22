@@ -5,7 +5,12 @@
         <div class="display-1 text--primary">Generate Report</div>
       </v-card-title>
       <v-card-text>
-        <v-form v-on:submit.prevent ref="form" autocomplete="off" v-model="valid">
+        <v-form
+          v-on:submit.prevent
+          ref="form"
+          autocomplete="off"
+          v-model="valid"
+        >
           <v-card>
             <v-card-title primary-title>Select Dates</v-card-title>
             <v-card-text>
@@ -13,7 +18,7 @@
                 <v-col cols="12" md="6">
                   <v-menu
                     v-model="menu2"
-                     :close-on-content-click="false"
+                    :close-on-content-click="false"
                     :nudge-right="40"
                     transition="scale-transition"
                     offset-y
@@ -30,13 +35,17 @@
                         v-on="on"
                       ></v-text-field>
                     </template>
-                    <v-date-picker  @input="menu2 = false" v-model="invoice_date1" :max="currentDate"></v-date-picker>
+                    <v-date-picker
+                      @input="menu2 = false"
+                      v-model="invoice_date1"
+                      :max="currentDate"
+                    ></v-date-picker>
                   </v-menu>
                 </v-col>
 
                 <v-col cols="12" md="6">
                   <v-menu
-                     :close-on-content-click="false"
+                    :close-on-content-click="false"
                     :nudge-right="40"
                     transition="scale-transition"
                     offset-y
@@ -53,7 +62,10 @@
                         v-on="on"
                       ></v-text-field>
                     </template>
-                    <v-date-picker v-model="invoice_date2" :max="currentDate"></v-date-picker>
+                    <v-date-picker
+                      v-model="invoice_date2"
+                      :max="currentDate"
+                    ></v-date-picker>
                   </v-menu>
                 </v-col>
               </v-row>
@@ -67,7 +79,8 @@
                 @click="getReports()"
                 color="primary"
                 class="mr-4"
-              >Get Report</v-btn>
+                >Get Report</v-btn
+              >
             </v-card-actions>
             <!-- <v-divider class="mt-12"></v-divider> -->
           </v-card>
@@ -79,7 +92,7 @@
           :items-per-page="5"
           :items="products"
           class="elevation-1"
-           :loading="tableLoading"
+          :loading="tableLoading"
         >
           <!-- <template v-slot:item.invoice_date="{ item }">
             <p>{{ item.invoice_date | formatDate}}</p>
@@ -92,11 +105,15 @@
           :disabled="!showExportButton"
           :data="products"
           :columns="columns"
-          :filename="'Sale_Report_on_'+currentDate"
-          :sheetname="'Sale_Report_on_'+currentDate"
+          :filename="'Sale_Report_on_' + currentDate"
+          :sheetname="'Sale_Report_on_' + currentDate"
         >
-          <template v-slot:item.invoice_date="{ item }">{{ item.invoice_date | formatDate}}</template>
-          <v-btn :disabled="!showExportButton" color="primary" class="mr-4">Export to Excel</v-btn>
+          <template v-slot:item.invoice_date="{ item }">{{
+            item.invoice_date | formatDate
+          }}</template>
+          <v-btn :disabled="!showExportButton" color="primary" class="mr-4"
+            >Export to Excel</v-btn
+          >
           <!-- Download -->
         </vue-excel-xlsx>
       </v-card-actions>
@@ -112,9 +129,9 @@ export default {
     return {
       products: [],
       date1: "",
-          buttonLoading:false,
-           tableLoading:false,
-         menu2: false,
+      buttonLoading: false,
+      tableLoading: false,
+      menu2: false,
       showExportButton: false,
       columns: [
         {
@@ -174,11 +191,11 @@ export default {
     };
   },
 
-  created: function () {
+  created: function() {
     // this.fetchItems();
     this.$store.state.show = true;
   },
-  updated: function () {
+  updated: function() {
     for (let i = 0; i < this.products.length; i++) {
       let date2 = this.products[i].invoice_date;
       this.products[i].invoice_date = moment(String(date2)).format(
@@ -189,15 +206,16 @@ export default {
   },
   methods: {
     getReports() {
-   this.buttonLoading=true;
-           this.tableLoading=true;
-     ProductService.getReport(this.invoice_date1,this.invoice_date2).then((response) => {
-
-        this.products = response.data;
-        this.showExportButton = true;
-           this.buttonLoading=false;
-                   this.tableLoading=false;
-      });
+      this.buttonLoading = true;
+      this.tableLoading = true;
+      ProductService.getReport(this.invoice_date1, this.invoice_date2).then(
+        (response) => {
+          this.products = response.data;
+          this.showExportButton = true;
+          this.buttonLoading = false;
+          this.tableLoading = false;
+        }
+      );
     },
   },
 };

@@ -426,9 +426,9 @@
                         v-if="!k == 0"
                         @click="deleteRow(k, productList)"
                         class="mx-2"
-                fab
-                dark
-                small
+                        fab
+                        dark
+                        small
                         color="error"
                       >
                         <v-icon dark>mdi-delete</v-icon>
@@ -551,7 +551,12 @@
           </v-card>
         </v-card-text>
         <v-card-actions class="justify-center">
-          <v-btn :loading="buttonLoading" type="submit" :disabled="!valid" color="success" class="mr-4"
+          <v-btn
+            :loading="buttonLoading"
+            type="submit"
+            :disabled="!valid"
+            color="success"
+            class="mr-4"
             >Submit</v-btn
           >
         </v-card-actions>
@@ -567,7 +572,7 @@ export default {
     menu: false,
     modal: false,
     menu2: false,
-    buttonLoading:false,
+    buttonLoading: false,
     reverse_charge_applicable: [{ text: "No", value: "No" }, "Yes"],
     // reverse_charge_applicable: ["No", "Yes"],
     defaultSelected: "No",
@@ -1069,9 +1074,8 @@ export default {
     },
     CreateProduct() {
       this.CreateReportsDetails();
-this.buttonLoading=true;
+      this.buttonLoading = true;
       ProductService.create(this.form).then((response) => {
-         
         this.$router.push({ name: "Home", params: { id: "true" } });
         console.log(response.data);
       });

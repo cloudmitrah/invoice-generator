@@ -1,20 +1,22 @@
 <template>
   <div class="create">
-     <Header />
+    <Header />
     <Reports />
-         <Footer />
+    <Footer />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Reports from '@/components/Reports.vue'
-import Header from '@/components/Header.vue'
-import Footer from '@/components/Footer.vue'
+import Reports from "@/components/Reports.vue";
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 export default {
-  name: 'create',
+  name: "create",
   components: {
-    Reports,  Header,Footer
-  }
-}
+    Reports,
+    Header,
+    Footer,
+  },
+};
 </script>

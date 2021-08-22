@@ -1,165 +1,182 @@
 <template>
   <v-container fluid>
-  <div>
     <div>
-    
-<v-row>
-            <v-col lg="4" cols="md" class="pb-2">
-                <v-card color="red">
-                    <v-row class="no-gutters">
-                        <div class="col-auto">
-                            <div class="white fill-height">&nbsp;</div>
-                        </div>
-                        <div class="col pa-3 py-4 white--text">
-                            <h5 class="text-truncate text-uppercase">Sales</h5>
-                            <h1>{{this.totalWithoutTax}}</h1>
-                        </div>
-                    </v-row>
-                </v-card>
-            </v-col>
-            <v-col lg="4" cols="md" class="pb-2">
-                <v-card color="green">
-                    <v-row class="no-gutters">
-                        <div class="col-auto">
-                            <div class="white fill-height">&nbsp;</div>
-                        </div>
-                        <div class="col pa-3 py-4 white--text">
-                            <h5 class="text-truncate text-uppercase">Growth</h5>
-                            <h1>23%</h1>
-                        </div>
-                    </v-row>
-                </v-card>
-            </v-col>
-            <v-col lg="4" cols="md" class="pb-2">
-                <v-card>
-                    <v-row class="no-gutters">
-                        <div class="col-auto">
-                            <div class="success fill-height">&nbsp;</div>
-                        </div>
-                        <div class="col pa-3 py-4 success--text">
-                            <h5 class="text-truncate text-uppercase">Calls</h5>
-                            <h1>213</h1>
-                        </div>
-                    </v-row>
-                </v-card>
-            </v-col>
+      <div>
+        <v-row>
+          <v-col lg="4" cols="md" class="pb-2">
+            <v-card color="red">
+              <v-row class="no-gutters">
+                <div class="col-auto">
+                  <div class="white fill-height">&nbsp;</div>
+                </div>
+                <div class="col pa-3 py-4 white--text">
+                  <h5 class="text-truncate text-uppercase">Sales</h5>
+                  <h1>{{ this.totalWithoutTax }}</h1>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col lg="4" cols="md" class="pb-2">
+            <v-card color="green">
+              <v-row class="no-gutters">
+                <div class="col-auto">
+                  <div class="white fill-height">&nbsp;</div>
+                </div>
+                <div class="col pa-3 py-4 white--text">
+                  <h5 class="text-truncate text-uppercase">Growth</h5>
+                  <h1>23%</h1>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col lg="4" cols="md" class="pb-2">
+            <v-card>
+              <v-row class="no-gutters">
+                <div class="col-auto">
+                  <div class="success fill-height">&nbsp;</div>
+                </div>
+                <div class="col pa-3 py-4 success--text">
+                  <h5 class="text-truncate text-uppercase">Calls</h5>
+                  <h1>213</h1>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
         </v-row>
+      </div>
 
+      <v-snackbar v-model="snackbar" :color="color" :timeout="timeout">
+        {{ text }}
+        <template v-slot:action="{ attrs }">
+          <v-btn dark text v-bind="attrs" @click="snackbar = false"
+            >Close</v-btn
+          >
+        </template>
+      </v-snackbar>
 
+      <v-card>
+        <v-card-title>
+          Product List
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-detail
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table
+          :headers="headers"
+          sort-by="invoice_no"
+          :items-per-page="5"
+          :search="search"
+          :items="products"
+          :loading="tableLoading"
+          loading-text="Loading... Please wait"
+          @click:row="detailpage"
+          class="elevation-2 clickableRow"
+        >
+          <template v-slot:item.invoice_date="{ item }">
+            {{ item.invoice_date | formatDate }}
+          </template>
+          <template v-slot:item.actions="{ item }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon
+                  color="blue darken-2"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="editItem(item)"
+                  >mdi-pencil</v-icon
+                >
+              </template>
+              <span>Edit</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon
+                  color="blue darken-2"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="detailpage(item)"
+                  >mdi-alert-circle</v-icon
+                >
+              </template>
+              <span>detail</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon
+                  color="red"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="passData(item)"
+                  >mdi-delete</v-icon
+                >
+              </template>
+              <span>Delete</span>
+            </v-tooltip>
+          </template>
+          <template v-slot:item.invoicepdf="{ item }">
+            <v-btn
+              x-small
+              class="mx-auto"
+              color="primary"
+              label="Original"
+              value="Original"
+              @click="getpdf(item, 'Original for Reciever')"
+              >Original</v-btn
+            >&nbsp;
+            <v-btn
+              x-small
+              class="mx-auto"
+              color="primary"
+              label="Duplicate"
+              value="Duplicate"
+              @click="getpdf(item, 'Duplicate for Transporter')"
+              >Duplicate</v-btn
+            >&nbsp;
+            <v-btn
+              x-small
+              class="mx-auto"
+              color="primary"
+              label="Triplicate"
+              value="Triplicate"
+              @click="getpdf(item, 'Triplicate for Supplier')"
+              >Triplicate</v-btn
+            >
+          </template>
+        </v-data-table>
+      </v-card>
+      <v-layout row justify-center>
+        <v-dialog v-model="confirmVisibilty" persistent max-width="290">
+          <v-card>
+            <v-card-title
+              class="error headline"
+              style="font-wight:bold; color:white;"
+              >Confirm Delete</v-card-title
+            >
+            <v-card-text
+              >Are you sure you want to delete this product?</v-card-text
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn text @click="confirmVisibilty = false">Cancel</v-btn>
+              <v-btn color="error" text @click="deleteItem()">Confirm</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-layout>
+
+      <div></div>
     </div>
-
-    <v-snackbar v-model="snackbar" :color="color" :timeout="timeout">
-      {{ text }}
-      <template v-slot:action="{ attrs }">
-        <v-btn dark text v-bind="attrs" @click="snackbar = false">Close</v-btn>
-      </template>
-    </v-snackbar>
-
-    <v-card>
-      <v-card-title>
-        Product List
-        <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-detail
-        ></v-text-field>
-      </v-card-title>
-      <v-data-table
-        :headers="headers"
-        sort-by="invoice_no"
-        :items-per-page="5"
-        :search="search"
-        :items="products"
-        :loading="tableLoading"
-    loading-text="Loading... Please wait"
-        @click:row="detailpage"
-        class="elevation-2 clickableRow"
-      >
-        <template v-slot:item.invoice_date="{ item }">
-          {{ item.invoice_date | formatDate}}
-        </template>
-        <template v-slot:item.actions="{ item }">
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon
-                color="blue darken-2"
-                dark
-                v-bind="attrs"
-                v-on="on"
-                @click="editItem(item)"
-              >mdi-pencil</v-icon>
-            </template>
-            <span>Edit</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon
-                color="blue darken-2"
-                dark
-                v-bind="attrs"
-                v-on="on"
-                @click="detailpage(item)"
-              >mdi-alert-circle</v-icon>
-            </template>
-            <span>detail</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon color="red" dark v-bind="attrs" v-on="on" @click="passData(item)">mdi-delete</v-icon>
-            </template>
-            <span>Delete</span>
-          </v-tooltip>
-        </template>
-        <template v-slot:item.invoicepdf="{ item }">
-          <v-btn
-            x-small
-            class="mx-auto"
-            color="primary"
-            label="Original"
-            value="Original"
-            @click="getpdf(item,'Original for Reciever')"
-          >Original</v-btn>&nbsp;
-          <v-btn
-            x-small
-            class="mx-auto"
-            color="primary"
-            label="Duplicate"
-            value="Duplicate"
-            @click="getpdf(item,'Duplicate for Transporter')"
-          >Duplicate</v-btn>&nbsp;
-          <v-btn
-            x-small
-            class="mx-auto"
-            color="primary"
-            label="Triplicate"
-            value="Triplicate"
-            @click="getpdf(item,'Triplicate for Supplier')"
-          >Triplicate</v-btn>
-        </template>
-      </v-data-table>
-    </v-card>
-    <v-layout row justify-center>
-      <v-dialog v-model="confirmVisibilty" persistent max-width="290">
-        <v-card>
-          <v-card-title class="error headline" style="font-wight:bold; color:white;">Confirm Delete</v-card-title>
-          <v-card-text>Are you sure you want to delete this product?</v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn text @click="confirmVisibilty=false">Cancel</v-btn>
-            <v-btn color="error" text @click="deleteItem()">Confirm</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-layout>
-
-    <div></div>
-  </div>
-   <v-snackbar
+    <v-snackbar
       v-model="deleteSnackbar"
       :timeout="deletetimeout"
       :color="color"
@@ -172,7 +189,7 @@
 import download from "downloadjs";
 import ProductService from "../service/ProductService";
 export default {
-   name: "home",
+  name: "home",
   data() {
     return {
       search: "",
@@ -183,11 +200,11 @@ export default {
       timeout: 3000,
       y: "top",
       loading: true,
-      tableLoading:true,
+      tableLoading: true,
       confirmVisibilty: false,
       deleteId: 0,
-       deleteSnackbar: false,
-      textDelete: 'Product deleted sucessfully',
+      deleteSnackbar: false,
+      textDelete: "Product deleted sucessfully",
       deletetimeout: 2000,
 
       headers: [
@@ -205,7 +222,7 @@ export default {
       ],
     };
   },
-  created: function () {
+  created: function() {
     this.fetchItems();
     this.CalculateTotal();
     this.$store.state.show = true;
@@ -214,7 +231,7 @@ export default {
     fetchItems() {
       // let uri = "http://localhost:8013/products/";
       // let uri = "http://localhost:8013/products";
-      
+
       // let token=authHeader();
       // console.log(token)
       // let auths='Bearer '+token;
@@ -222,7 +239,7 @@ export default {
       ProductService.getAll().then((response) => {
         // console.log(response.data)
         this.products = response.data;
-        this.tableLoading=false;
+        this.tableLoading = false;
       });
       // this.axios.get(uri)
 
@@ -239,10 +256,10 @@ export default {
 
     deleteItem() {
       let id = this.deleteId;
-      this.confirmVisibilty = false;  
+      this.confirmVisibilty = false;
       this.products.splice(id, 1);
       ProductService.delete(id).then(() => {
-        this.deleteSnackbar=true;
+        this.deleteSnackbar = true;
         this.fetchItems();
       });
     },
@@ -250,19 +267,17 @@ export default {
     editItem(item) {
       this.$router.push({ name: "Edit", params: { id: item.id } });
     },
-     detailpage(item) {
+    detailpage(item) {
       this.$router.push({ name: "Details", params: { id: item.id } });
     },
-     CalculateTotal() {
+    CalculateTotal() {
       var totalWithoutTax;
       var totalWithTax;
-      var totalInvoice
+      var totalInvoice;
       for (var i = 0; i < this.products.length; i++) {
-       totalWithoutTax=totalWithoutTax+
-          this.products[i].amount_without_tax;
-          totalWithTax=totalWithTax+
-          this.products[i].total_amount_with_tax;
-          totalInvoice=totalInvoice+(i+1);
+        totalWithoutTax = totalWithoutTax + this.products[i].amount_without_tax;
+        totalWithTax = totalWithTax + this.products[i].total_amount_with_tax;
+        totalInvoice = totalInvoice + (i + 1);
       }
     },
     getpdf(item, pdfType) {
@@ -277,7 +292,7 @@ export default {
         billTo +
         ")" +
         ".pdf";
-       ProductService.getPDFbyId(pdfid,pdfType)
+      ProductService.getPDFbyId(pdfid, pdfType)
         .then((response) => {
           const content = response.headers["content-type"];
           download(response.data, filename, content);
@@ -288,5 +303,7 @@ export default {
 };
 </script>
 <style scoped>
-.clickableRow {cursor: pointer;}
+.clickableRow {
+  cursor: pointer;
+}
 </style>
