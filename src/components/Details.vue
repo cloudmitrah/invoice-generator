@@ -546,8 +546,6 @@ convertToWords(total_withtax) {
     getpdf(pdfType) {
       let pdfid = this.form.id;
       let billTo = this.form.bill_to_name;
-      alert(this.form.id);
-      alert(pdfType);
       var filename =
         "Tax_Invoice_No." +
         this.form.invoice_no +
@@ -557,7 +555,6 @@ convertToWords(total_withtax) {
         billTo +
         ")" +
         ".pdf";
-      // let uri = `http://localhost:8013/getPDF/${pdfid}/${pdfType}`;
        ProductService.getPDFbyId(pdfid,pdfType)
         .then((response) => {
           const content = response.headers["content-type"];

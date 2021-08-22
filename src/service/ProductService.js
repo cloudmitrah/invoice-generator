@@ -21,7 +21,7 @@ class ProductService {
     return http.delete(`/delete/${id}`);
   }
   getPDFbyId(pdfid,pdfType) {
-    return http.get(`/getPDF/${pdfid}/${pdfType}`,{ headers: this.headers, responseType: "blob" });
+    return http.get(`/abc/${pdfid}/${pdfType}`,{ headers: this.headers, responseType: "blob" });
   }
 //   deleteAll() {
 //     return http.delete(`/tutorials`);
