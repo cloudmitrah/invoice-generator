@@ -1,5 +1,7 @@
 module.exports = {
-  publicPath:'invoice-generator',
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/invoice-generator/'
+    : '/',
   transpileDependencies: [
     'vuetify'
   ]
