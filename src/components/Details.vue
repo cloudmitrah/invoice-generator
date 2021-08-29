@@ -226,7 +226,25 @@
 
             <!-- <v-divider class="mt-12"></v-divider> -->
           </v-card>
-
+<v-layout row justify-center>
+        <v-dialog v-model="confirmVisibilty" persistent max-width="290">
+          <v-card>
+            <v-card-title
+              class="error headline"
+              style="font-wight:bold; color:white;"
+              >Confirm Delete</v-card-title
+            >
+            <v-card-text
+              >Are you sure you want to delete this product?</v-card-text
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn text @click="confirmVisibilty = false">Cancel</v-btn>
+              <v-btn color="error" text @click="deleteItem()">Confirm</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-layout>
           <!-- <div>
               <v-btn @click="addNewRow" small color="primary">Add</v-btn>
             </div>-->
@@ -322,9 +340,10 @@
             </v-card-text>
           </v-card>
         </v-card-text>
+        
         <!-- <v-divider class="mt-12"></v-divider> -->
         <v-card-actions class="justify-center">
-          <router-link to="/home">
+          <router-link to="/">
             <v-btn color="primary" class="mr-4">Back</v-btn>
           </router-link>
           <v-btn
@@ -335,10 +354,20 @@
             @click="editItem()"
             >Edit</v-btn
           >
+           <v-btn
+            type="submit"
+            :disabled="!valid"
+            color="error"
+            class="mr-4"
+           @click="passData()"
+            >Delete</v-btn
+          >
         </v-card-actions>
+        
       </v-card>
     </v-form>
   </v-container>
+  
 </template>
 <script>
 import download from "downloadjs";
@@ -349,6 +378,7 @@ export default {
     invoice_date: new Date().toISOString().substr(0, 10),
     menu: true,
     modal: true,
+    confirmVisibilty: false,
     // reverse_charge_applicable: ["No", "Yes"],
     pdftype: [
       { title: "Original" },
@@ -428,6 +458,20 @@ export default {
         );
         this.form.invoice_date = this.format_date(this.form.invoice_date);
       });
+    },
+     passData() {
+      this.confirmVisibilty = true;
+    },
+    deleteItem() {
+      
+      let id = this.$route.params.id;
+      //  alert(id)
+      this.confirmVisibilty = false;
+      // this.products.splice(id, 1);
+      ProductService.delete(id).then(() => {
+      
+      });
+      this.$router.push({ name: "Home"});
     },
     format_date(value) {
       if (value) {
