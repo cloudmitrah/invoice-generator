@@ -548,10 +548,10 @@
         <!-- <v-divider class="mt-12"></v-divider> -->
         <v-card-actions class="justify-center">
           <v-btn type="submit" :disabled="!valid" color="success" class="mr-4"
-            >Submit</v-btn
+            >Edit</v-btn
           >
-          <router-link to="/home">
-            <v-btn color="warning" class="mr-4">Cancel</v-btn></router-link
+          <router-link to="/">
+            <v-btn color="primary" class="mr-4">Cancel</v-btn></router-link
           >
         </v-card-actions>
         <v-card-actions class="justify-center"> </v-card-actions>

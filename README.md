@@ -1,4 +1,4 @@
-# bazaar
+# Invoice generator
 
 ## Project setup
 ```

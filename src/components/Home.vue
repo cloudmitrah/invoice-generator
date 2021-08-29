@@ -207,7 +207,6 @@
           :items="products"
           :loading="tableLoading"
           loading-text="Loading... Please wait"
-          @click:row="detailpage"
           class="elevation-2 clickableRow"
         >
           <template v-slot:item.invoice_date="{ item }">
@@ -362,6 +361,12 @@ export default {
     this.fetchItems();
     this.CalculateTotal();
     this.$store.state.show = true;
+  },
+  computed: {
+    // a computed getter
+    fetchData: function () {
+      return this.fetchItems();
+    }
   },
   methods: {
     fetchItems() {
