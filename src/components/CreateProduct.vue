@@ -1103,5 +1103,6 @@ table th + th {
 table td + td {
   border: 1px solid #ddd;
 }
+
 /* table tr + tr {  border: 1px solid #ddd; } */
 </style>

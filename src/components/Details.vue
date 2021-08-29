@@ -164,7 +164,7 @@
           <v-card ref="form">
             <v-card-title primary-title>Product Details</v-card-title>
             <v-card-text>
-              <table class="table1">
+              <table class="table1" >
                 <thead class="th1">
                   <tr>
                     <th class="th1" rowspan="2">SN</th>
@@ -199,7 +199,7 @@
                     <th class="th1">Amt</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody >
                   <tr v-for="(productList, k) in form.productList" :key="k">
                     <td class="td1">{{ k + 1 }}</td>
                     <td class="td1" colspan="2">
@@ -618,6 +618,8 @@ export default {
 .td1 {
   border: 1px solid #808080;
   word-wrap: break-word;
+  text-align: center;
+
 }
 
 .th1 {
