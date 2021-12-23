@@ -1,5 +1,5 @@
 # Invoice generator
-
+Sample Vuejs
 ## Project setup
 ```
 npm install
